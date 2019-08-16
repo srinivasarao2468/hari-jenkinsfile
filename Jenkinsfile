@@ -17,7 +17,7 @@ pipeline {
             echo repo_url
             def ImageTag = "${repo_url}:${version}"
             sh "\$(aws ecr get-login --no-include-email --region ${region})"
-            sh "docker build -t ${ImageTag} ./Dockerfile"
+            sh "docker build -t ${ImageTag} '.'"
             sh "docker push ${ImageTag}"
           }
         }
