@@ -29,9 +29,11 @@ pipeline {
 
 def makeSureECRExists(ecrRepoName, region){
   try{
-    def repoDetails = sh script:"aws ecr create-repository --repository-name ${ecrRepoName} --region ${region} --output text | awk '{print \$NF}'",  returnStdout: true
+    def repoUrl = sh script:"aws ecr create-repository --repository-name ${ecrRepoName} --region ${region} --output text | awk '{print \$NF}'",  returnStdout: true
+    return repoUrl
   }catch(error){
     echo "INFO repository already exists"
-    def repoDetails = sh script:"aws ecr describe-repositories --repository-name ${ecrRepoName} --region ${region} --output text | awk '{print \$NF}'", returnStdout: true
+    def repoUrl = sh script:"aws ecr describe-repositories --repository-name ${ecrRepoName} --region ${region} --output text | awk '{print \$NF}'", returnStdout: true
+    return repoUrl
   }
 }
