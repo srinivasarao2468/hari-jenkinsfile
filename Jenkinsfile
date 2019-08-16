@@ -6,6 +6,7 @@ pipeline {
     stages{
         stage('repoUrl'){
             steps{
+            checkout scm
             echo makeSureECRExists(ecrRepoName, region)
             }
         }
