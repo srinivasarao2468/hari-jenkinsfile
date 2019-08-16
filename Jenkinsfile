@@ -2,6 +2,7 @@ def ecrRepoName = "srinivas"
 def version = "1.0"
 def region = "us-west-2"
 pipeline {
+    agent any
     stages{
         stage{
             steps{
