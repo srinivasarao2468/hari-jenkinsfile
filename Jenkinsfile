@@ -1,5 +1,5 @@
 def ecrRepoName = "srinivas"
-def version = "latest"
+def version = "1.0"
 def region = "us-west-2"
 pipeline {
     agent any
