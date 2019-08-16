@@ -13,6 +13,7 @@ pipeline {
             steps {
             script{
               def repo_url = makeSureECRExists(ecrRepoName, region)
+              echo repo_url
             }
             }
         }
