@@ -28,7 +28,7 @@ pipeline {
 def makeSureECRExists(ecrRepoName, region){
   try{
     def repoUrl = sh script:"aws ecr create-repository --repository-name ${ecrRepoName} --region ${region} --output text | awk '{print \$NF}'", returnStdout: true
-    echo "${repoUrl}"
+    echo "Hari------${repoUrl}"
     return repoUrl
   }catch(Exception ex){
     echo "INFO repository already exists"
