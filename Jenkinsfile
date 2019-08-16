@@ -17,7 +17,7 @@ def makeSureECRExists(ecrRepoName, region){
     def repoUrl = sh (returnStdout: true, script: "aws ecr create-repository --repository-name srinivas --region us-west-2 --output text | awk '{print \$NF}'").trim()
     echo "${repoUrl}" 
     return repoUrl
-  }catch(err){
+  }catch(Exception ex){
     echo "INFO repository already exists"
     def repoUrl = sh (returnStdout: true, script: "aws ecr describe-repositories --repository-name srinivas --region us-west-2 --output text | awk '{print \$NF}'").trim()
     echo "${repoUrl}"
