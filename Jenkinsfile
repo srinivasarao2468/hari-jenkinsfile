@@ -4,7 +4,7 @@ def region = "us-west-2"
 pipeline {
     agent any
     stages {
-        stage('Create ECR') {
+        stage('Git Checkout') {
             steps {
             checkout(scm)
             }
