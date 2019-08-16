@@ -14,12 +14,12 @@ pipeline {
             script{
               def repo_url = makeSureECRExists(ecrRepoName, region)
               echo repo_url
-            }
             sh "\$(aws ecr get-login --no-include-email --region ${region})"
             sh "docker build -t ecr_docker_repository ."
             sh "docker tag ecr_docker_repository:latest ${repo_url}:${version}"
             sh "docker push ${repo_url}:${version}"
             }
+          }
         }
     }
 }
