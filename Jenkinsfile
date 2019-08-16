@@ -7,7 +7,7 @@ pipeline {
         stage('repoUrl'){
             steps{
             checkout scm
-            echo makeSureECRExists(ecrRepoName, region)
+            makeSureECRExists(ecrRepoName, region)
             }
         }
     }
