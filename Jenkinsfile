@@ -1,14 +1,16 @@
 def ecrRepoName = "srinivas"
-def version = "latest"
+def version = "1.0"
 def region = "us-west-2"
 pipeline {
     agent any
-    stages {
-        stage('Git Checkout') {
-            steps {
-            checkout(scm)
+    stages{
+        stage('repoUrl'){
+            steps{
+            checkout scm
+            makeSureECRExists(ecrRepoName, region)
             }
         }
+<<<<<<< HEAD
         stage('Create & Push DockerImage') {
             steps {
             script{
@@ -21,17 +23,28 @@ pipeline {
             }
           }
         }
+=======
+>>>>>>> fec47d00113bb011aaf6733150cb660d45a3958b
     }
 }
-
 def makeSureECRExists(ecrRepoName, region){
   try{
-    def repoUrl = sh script:"aws ecr create-repository --repository-name ${ecrRepoName} --region ${region} --output text | awk '{print \$NF}'",  returnStdout: true
+    def repoUrl = sh (returnStdout: true, script: "aws ecr create-repository --repository-name srinivas --region us-west-2 --output text | awk '{print \$NF}'").trim()
+    echo "${repoUrl}" 
     return repoUrl
+<<<<<<< HEAD
   }catch(Exception ex){
     echo "INFO repository already exists"
   }finally{
   def repoUrl = sh script:"aws ecr describe-repositories --repository-name ${ecrRepoName} --region ${region} --output text | awk '{print \$NF}'", returnStdout: true
   return repoUrl
+=======
+  } catch(Exception ex){
+    echo "INFO repository already exists"
+  }finally {
+    def repoUrl = sh (returnStdout: true, script: "aws ecr describe-repositories --repository-name srinivas --region us-west-2 --output text | awk '{print \$NF}'").trim()
+    echo "${repoUrl}"
+    return repoUrl
+>>>>>>> fec47d00113bb011aaf6733150cb660d45a3958b
   }
 }
