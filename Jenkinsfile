@@ -4,7 +4,7 @@ def region = "us-west-2"
 pipeline {
     agent any
     stages{
-        stage{
+        stage('repoUrl'){
             steps{
             echo makeSureECRExists(ecrRepoName, region)
             }
