@@ -9,16 +9,12 @@ pipeline {
             checkout(scm)
             }
         }
-        stage('Create ECR') {
+        stage('Create & Push DockerImage') {
             steps {
             script{
               def repo_url = makeSureECRExists(ecrRepoName, region)
               echo repo_url
             }
-            }
-        }
-        stage('Create & Push DockerImage') {
-            steps {
             sh "\$(aws ecr get-login --no-include-email --region ${region})"
             sh "docker build -t ecr_docker_repository ."
             sh "docker tag ecr_docker_repository:latest ${repo_url}:${version}"
