@@ -11,7 +11,9 @@ pipeline {
         }
         stage('Create ECR') {
             steps {
+            script{
               def repo_url = makeSureECRExists(ecrRepoName, region)
+            }
             }
         }
         stage('Create & Push DockerImage') {
