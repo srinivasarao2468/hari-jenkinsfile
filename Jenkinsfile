@@ -13,12 +13,14 @@ pipeline {
 }
 def makeSureECRExists(ecrRepoName, region){
   try{
-    repoUrl = sh (returnStdout: true, script: 'aws ecr create-repository --repository-name srinivas --region us-west-2 --output text | awk \'{print \$NF}\'')
-    echo repoUrl
+    sh 'aws ecr create-repository --repository-name srinivas --region us-west-2 --output text | awk \'{print \$NF}\''  > var.txt
+    repoUrl = readFile 'var.txt'
+    echo repoUrl 
     return repoUrl
   }catch(error){
     echo "INFO repository already exists"
-    repoUrl = sh (returnStdout: true, script: 'aws ecr describe-repositories --repository-name srinivas --region us-west-2 --output text | awk \'{print \$NF}\'')
+    sh 'aws ecr describe-repositories --repository-name srinivas --region us-west-2 --output text | awk \'{print \$NF}\'' > var.txt
+    repoUrl = readFile 'var.txt'
     echo repoUrl
     return repoUrl
   }
