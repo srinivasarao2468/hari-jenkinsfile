@@ -15,9 +15,10 @@ pipeline {
           script{
             def repo_url = makeSureECRExists(ecrRepoName, region)
             echo repo_url
-            def ImageTag = "${repo_url}:latest"
+            def ImageTag = "${repo_url}"
             sh "\$(aws ecr get-login --no-include-email --region ${region})"
             sh "docker build . -t ${ImageTag}"
+            sh "docker tag ${ImageTag}:latest ${repo_url}:${version}"
             sh "docker push ${ImageTag}"
           }
         }
