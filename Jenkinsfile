@@ -1,6 +1,7 @@
 def ecrRepoName = "srinivas"
 def version = "1.0"
 def region = "us-west-2"
+def repo_url = makeSureECRExists(ecrRepoName, region)
 pipeline {
   agent any
     stages{
@@ -11,13 +12,7 @@ pipeline {
         }
 
       stage('Create & Push DockerImage') {
-        steps {
-          environment{
-            def repo_url = makeSureECRExists(ecrRepoName, region)
-            echo repo_url
-            //def ImageTag = "${repo_url}:${version}"
-          }
-          
+        steps {          
           sh "\$(aws ecr get-login --no-include-email --region ${region})"
           sh "docker build -t ${repo_url} ."
           sh "docker tag 553752123941.dkr.ecr.us-west-2.amazonaws.com/srinivas:latest 553752123941.dkr.ecr.us-west-2.amazonaws.com/srinivas:0.1" 
