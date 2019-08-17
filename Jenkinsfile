@@ -12,7 +12,7 @@ pipeline {
 
       stage('Create & Push DockerImage') {
         steps {
-          script{
+          environment{
             def repo_url = makeSureECRExists(ecrRepoName, region)
             echo repo_url
             //def ImageTag = "${repo_url}:${version}"
