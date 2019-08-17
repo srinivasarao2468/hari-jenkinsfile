@@ -12,25 +12,14 @@ pipeline {
 
       stage('Create & Push DockerImage') {
         steps {
-          
-          dockerfile {
-              filename 'Dockerfile.build'
-              dir 'build'
-              label 'my-defined-label'
-              additionalBuildArgs  '--build-arg version=1.0.2'
-              args '-v /tmp:/tmp'
-          }
           script{
             def repo_url = makeSureECRExists(ecrRepoName, region)
             echo repo_url
             //def ImageTag = "${repo_url}:${version}"
             sh "\$(aws ecr get-login --no-include-email --region ${region})"
-            
-              dockerfile {
-                  filename 'Dockerfile'
-                  dir '.'
-                  label 'hari-label'
-              }
+            sh "docker build -t . ${repo_url}"
+            sh "docker tag 553752123941.dkr.ecr.us-west-2.amazonaws.com/srinivas:latest 553752123941.dkr.ecr.us-west-2.amazonaws.com/srinivas:0.1" 
+            sh "docker push 553752123941.dkr.ecr.us-west-2.amazonaws.com/srinivas:0.1"
           }
         }
       }
