@@ -17,7 +17,9 @@ pipeline {
             echo repo_url
             //def ImageTag = "${repo_url}:${version}"
             sh "\$(aws ecr get-login --no-include-email --region ${region})"
+            echo "-----------------"
             def customImage = docker.build("${repo_url}:${env.BUILD_ID}")
+            echo "-----------------"
             sh "docker push ${customImage}"
           }
         }
