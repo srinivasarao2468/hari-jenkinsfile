@@ -13,7 +13,7 @@ pipeline {
           script{
             checkout scm
             def commitHash = checkout(scm).GIT_COMMIT
-            echo commiHash
+            echo "${commiHash}"
             }
           }
         }
