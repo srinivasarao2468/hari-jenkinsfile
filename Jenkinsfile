@@ -24,10 +24,13 @@ pipeline {
         steps {
           script
             {      
-            sh "\$(aws ecr get-login --no-include-email --region ${region}) --password-stdin"
-            docker.build("${repo_url}")
-            sh "docker tag ${repo_url}:latest ${env.Image_Vesrion}" 
-            sh "docker push ${Image_Vesrion}"
+              sh "\$(aws ecr get-login --no-include-email --region ${region}) --password-stdin"
+              echo 1
+              docker.build("${repo_url}")
+              echo 2
+              sh "docker tag ${repo_url}:latest ${env.Image_Vesrion}" 
+              echo 3
+              sh "docker push ${Image_Vesrion}"
           }
         }
       }
