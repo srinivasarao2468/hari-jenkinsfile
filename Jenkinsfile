@@ -28,7 +28,7 @@ pipeline {
               echo "1"
               sh "docker build . -t ${env.repo_url}"
               echo "2"
-              sh "docker tag ${env.repo_url}:latest ${env.Image_Vesrion}" 
+              sh "docker tag '${env.repo_url}:latest' '${env.Image_Vesrion}'" 
               echo "3"
               sh "docker push ${Image_Vesrion}"
           }
