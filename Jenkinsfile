@@ -26,7 +26,7 @@ pipeline {
             {      
               sh "\$(aws ecr get-login --no-include-email --region ${region})"
               echo "1"
-              docker.build("${env.repo_url}", ".")
+              docker.build("${env.repo_url}", "./dockerfiles/Dockerfile")
               echo "2"
               sh "docker tag ${env.repo_url}:latest ${env.Image_Vesrion}" 
               echo "3"
