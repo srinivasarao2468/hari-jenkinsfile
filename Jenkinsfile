@@ -11,7 +11,7 @@ pipeline {
       stage('repoUrl'){
         steps{
           script{
-            checkout scm
+            //checkout scm
             def commitHash = checkout(scm).GIT_COMMIT
             echo "${commiHash}"
             }
