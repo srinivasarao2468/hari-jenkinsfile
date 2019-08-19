@@ -1,11 +1,12 @@
 def ecrRepoName = "srinivas"
 def version = "1.0"
 def region = "us-west-2"
-//def repo_url = ""
+def repo_url = ""
 pipeline {
   agent any
   environment {
-       repo_url = makeSureECRExists(ecrRepoName, region)
+      repo_url = makeSureECRExists(ecrRepoName, region)
+      Image_Vesrion = "${env.repo_url}:${version}"
     }
     stages{
       stage('repoUrl'){
@@ -24,9 +25,9 @@ pipeline {
           script
             {      
             sh "\$(aws ecr get-login --no-include-email --region ${region}) --password-stdin"
-            sh "docker build -t ${repo_url} ."
-            sh "docker tag 553752123941.dkr.ecr.us-west-2.amazonaws.com/srinivas:latest 553752123941.dkr.ecr.us-west-2.amazonaws.com/srinivas:0.1" 
-            sh "docker push 553752123941.dkr.ecr.us-west-2.amazonaws.com/srinivas:0.1"
+            docker.build("${repo_url}")
+            sh "docker tag ${repo_url}:latest ${env.Image_Vesrion}" 
+            sh "docker push ${Image_Vesrion}"
           }
         }
       }
