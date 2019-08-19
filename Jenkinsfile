@@ -17,7 +17,7 @@ pipeline {
       stage('Create & Push DockerImage') {
         
         steps {          
-          sh "\$(aws ecr get-login --no-include-email --region ${region})"
+          sh "\$(aws ecr get-login --no-include-email --region ${region}) --password-stdin"
           sh "docker build -t ${repo_url} ."
           sh "docker tag 553752123941.dkr.ecr.us-west-2.amazonaws.com/srinivas:latest 553752123941.dkr.ecr.us-west-2.amazonaws.com/srinivas:0.1" 
           sh "docker push 553752123941.dkr.ecr.us-west-2.amazonaws.com/srinivas:0.1"
