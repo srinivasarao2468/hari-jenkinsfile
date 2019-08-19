@@ -28,9 +28,9 @@ pipeline {
               echo "1"
               sh "docker build . -t ${env.repo_url}"
               echo "2"
-              sh "docker tag '${env.repo_url}\:latest' '"${env.repo_url}\:${version}"'" 
+              sh "docker tag '${env.repo_url}:latest' '${env.repo_url}:${version}'" 
               echo "3"
-              sh "docker push '${env.repo_url}\:${version}'"
+              sh "docker push '${env.repo_url}:${version}'"
           }
         }
       }
