@@ -6,7 +6,7 @@ pipeline {
   agent any
   environment {
       repo_url = makeSureECRExists(ecrRepoName, region).trim()
-      Image_Vesrion = "${env.repo_url}:${version}"
+      Image_Vesrion = "${env.repo_url}:${env.BUILD_NUMBER}"
     }
     stages{
       stage('repoUrl'){
