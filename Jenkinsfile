@@ -1,7 +1,7 @@
 def ecrRepoName = "srinivas"
 def version = "1.0"
 def region = "us-west-2"
-def repo_url = ""
+//def repo_url = ""
 pipeline {
   agent any
   environment {
